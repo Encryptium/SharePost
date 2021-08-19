@@ -29,7 +29,7 @@
 
 	<div id="posts">
 		{% for post in posts %}
-			<a class="post-link" href="/view-post/{{ post[0] }}" draggable="false">
+			<a class="post-link" href="/post/{{ post[0] }}" draggable="false">
 				<div class="post" title="`{{ post[2] }}` by {{ post[1] }} was posted on {{ post[4] }} with {{ post[5] }} view(s)">
 					<p class="title">{{ post[2] }}</p>
 					<p>by {{ post[1] }}</p>

@@ -449,3 +449,13 @@ pre {
 p.center {
 	text-align: center;
 }
+
+.danger-link {
+	background-color: #de5246;
+	color: white;
+	padding: 15px;
+	border-radius: 2px;
+	display: block;
+	width: 500px;
+	margin: auto auto 10px auto;
+}

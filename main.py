@@ -168,14 +168,14 @@ def publish_post():
 	conn.commit()
 	conn.close()
 	#return render_template("posted.html", title=title, body=content, timestamp=timestamp)
-	return redirect("/view-post/"+random_generated)
+	return redirect("/post/"+random_generated)
 
-@app.route("/view-post/<post_id>")
+@app.route("/post/<post_id>")
 def view_post(post_id):
 	if check_if_logged_in() == False:
 		return redirect("/login")
 	if is_int(post_id) == False:
-		return "Invalid Post"
+		return render_template("post-error.html", error="Invalid Post")
 	conn = sqlite3.connect('db.sql')
 	c = conn.cursor()
 	data = c.execute("SELECT * FROM posts WHERE id=:post_id", {'post_id':post_id}).fetchall()
@@ -184,7 +184,7 @@ def view_post(post_id):
 	if len(data) == 0:
 		conn.commit()
 		conn.close()
-		return "Invalid Post"
+		return render_template("post-error.html", error="Invalid Post")
 
 	conn.commit()
 	conn.close()
@@ -209,7 +209,7 @@ def log_comment():
 	c.execute("INSERT INTO comments VALUES(?, ?, ?, ?, ?, ?, ?)", (post_id, session.get("username"), body, timestamp, 0, 0, profile_img_id[0][0]))
 	conn.commit()
 	conn.close()
-	return redirect("/view-post/" + post_id)
+	return redirect("/post/" + post_id)
 
 @app.route("/profile")
 def profile_custom():
@@ -223,6 +223,8 @@ def profile_custom():
 
 @app.route("/profile/<username>")
 def profile_general(username):
+	if check_if_logged_in() == False:
+		return redirect("/login")
 	# Send all the account information to profile page
 	conn = sqlite3.connect('db.sql')
 	c = conn.cursor()
@@ -269,7 +271,8 @@ def update_account():
 
 		for username in stored_usernames:
 			if input_username.lower() == username[0].lower():
-				return "Username taken"
+				# return "Username taken"
+				return render_template("account-error.html", error="Username Taken")
 
 		c.execute("UPDATE posts SET author=:new_username WHERE author=:old_username", {"new_username":input_username,"old_username":session.get("username")})
 
@@ -289,6 +292,62 @@ def logout():
 	session.clear()
 	return redirect("/login")
 
+@app.route("/delete-everything")
+def delete_everything():
+	conn = sqlite3.connect('db.sql')
+	c = conn.cursor()
+	c.execute("DELETE FROM accounts WHERE username=:username", {"username": session.get("username")})
+	# delete all comments
+	c.execute("DELETE FROM comments WHERE author=:username", {"username":session.get("username")})
+
+	# delete all posts including linked comments
+	saved_posts = c.execute("SELECT id FROM posts WHERE author=:username", {"username": session.get("username")}).fetchall()
+	for post in saved_posts:
+		c.execute("DELETE FROM comments WHERE post_id=:post_id", {"post_id": post[0]})
+
+	c.execute("DELETE FROM posts WHERE author=:username", {"username": session.get("username")})
+
+	conn.commit()
+	conn.close()
+
+	return redirect("/")
+
+@app.route("/delete-account", methods=['GET'])
+def delete_account():
+	conn = sqlite3.connect('db.sql')
+	c = conn.cursor()
+	c.execute("DELETE FROM accounts WHERE username=:username", {"username": session.get("username")})
+	# rename all comments
+	c.execute("UPDATE comments SET author='[DELETED_ACCOUNT]', pfp='0' WHERE author=:username", {"username":session.get("username")})
+	# rename all posts excluding linked comments
+	c.execute("UPDATE posts SET author='[DELETED_ACCOUNT]', pfp='0' WHERE author=:username", {"username": session.get("username")})
+
+	conn.commit()
+	conn.close()
+	return redirect("/")
+
+@app.route("/delete-posts")
+def delete_posts():
+	conn = sqlite3.connect('db.sql')
+	c = conn.cursor()
+	saved_posts = c.execute("SELECT id FROM posts WHERE author=:username", {"username": session.get("username")}).fetchall()
+	for post in saved_posts:
+		c.execute("DELETE FROM comments WHERE post_id=:post_id", {"post_id": post[0]})
+
+	c.execute("DELETE FROM posts WHERE author=:username", {"username": session.get("username")})
+	conn.commit()
+	conn.close()
+	return redirect("/account")
+
+@app.route("/delete-comments")
+def delete_comments():
+	conn = sqlite3.connect('db.sql')
+	c = conn.cursor()
+	c.execute("DELETE FROM comments WHERE author=:username", {"username":session.get("username")})
+	conn.commit()
+	conn.close()
+	return redirect("/account")
+
 @app.route("/api", methods=['GET'])
 def access_api():
 	profile_username = request.args.get("profile")
@@ -297,11 +356,13 @@ def access_api():
 	conn = sqlite3.connect('db.sql')
 	c = conn.cursor()
 	profile_information = c.execute("SELECT * FROM accounts WHERE lower(username)=:profile_username", {"profile_username":profile_username.lower()}).fetchall()
+	account_posts = c.execute("SELECT * FROM posts WHERE lower(author)=:profile_username", {"profile_username":profile_username.lower()}).fetchall()
+	account_comments = c.execute("SELECT * FROM comments WHERE lower(author)=:profile_username", {"profile_username":profile_username.lower()}).fetchall()
 	conn.commit()
 	conn.close()
 	if len(profile_information) == 0:
 		return "Profile doesn't exist"
-	return jsonify({'username': profile_information[0][0], 'bio': profile_information[0][2], 'status': profile_information[0][3], 'profile_picture': f"https://SharePost.jonathan2018.repl.co/static/images/profile/pfp-{profile_information[0][4]}.png"})
+	return jsonify({'username': profile_information[0][0], 'bio': profile_information[0][2], 'status': profile_information[0][3], 'profile_picture': f"https://SharePost.jonathan2018.repl.co/static/images/profile/pfp-{profile_information[0][4]}.png", 'comments': len(account_comments), 'posts': len(account_posts)})
 
 
 if __name__ == '__main__':
