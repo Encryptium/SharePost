@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Account Information</title>
+	<link rel="stylesheet" href="/static/style.css">
+	<link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p"
+	 crossorigin="anonymous" />
+	<script src="/static/navbar.js" defer></script>
+	<script src="/static/pfp-loader.js" defer></script>
+	<script src="/static/script.js" defer></script>
+</head>
+<body>
+
+	<script>
+		const pfp = "{{ pfp }}";
+		const name = "{{ username }}";
+	</script>
+
+	<div id="navbar"></div>
+
+	<h1 id="profile-title">{{ information[0] }}</h1>
+
+	<div class="profile-img-id" style="display:none">{{ information[4] }}</div>
+	<div id="profile-pfp" title="Profile picture is not editable yet">
+		<img class="profile-img" id="profile-img" draggable="false">
+	</div>
+	<!-- [IMG] {{ information[4] }} -->
+
+	<div id="right-sidebar">
+		<!-- <br> -->
+		<h1>Edit Account</h1>
+
+		<form action="/edit-account" method="POST" id="information">
+			<p class="profile-element-desc">Account Name</p>
+			<input onkeyup="removeInvalidChars('username')" class="profile-element" name="username" value="{{ information[0][1:] }}" placeholder="Your comments & posts will update site-wide if you edit this">
+			<p class="profile-element-desc">Bio</p>
+			<textarea class="profile-element" name="bio" placeholder="Tell others about yourself" maxlength="150">{{ information[2] }}</textarea>
+			<p class="profile-element-desc">Status</p>
+			<input class="profile-element" name="status" value="{{ information[3] }}" maxlength="95" placeholder="Set your status">
+			<br>
+			<br>
+			<button type="submit" class="submit" id="upper-account">Save</button>
+			<a type="submit" class="submit" id="logout-btn" href="/logout">Logout of account</a>
+		</form>
+	</div>
+	
+</body>
+</html>

@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Publish a new post</title>
+	<link rel="stylesheet" href="/static/style.css">
+	<link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p"
+	 crossorigin="anonymous" />
+	<script src="/static/navbar.js" defer></script>
+</head>
+<body>
+
+	<script>
+		const pfp = "{{ pfp }}";
+		const name = "{{ username }}";
+	</script>
+
+	<div id="navbar"></div>
+
+	<h1>Publish a new post</h1>
+
+	<div id="create-post">
+		<form action="/publish" method="POST">
+		<input type="text" name="title" id="title-input" placeholder="Title" maxlength="55" autocomplete="off" autofocus>
+		<br>
+		<br>
+		<!-- <input type="text" name="username" placeholder="Your name">
+		<br>
+		<br> -->
+		<textarea name="body-content" id="content-input" placeholder="Share what you've been up to..." maxlength="350"></textarea>
+		<br>
+		<button title="Posting is not ready in development" type="submit" class="submit">Post</button>
+		</form>
+	</div>
+	
+</body>
+</html>

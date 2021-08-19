@@ -1,0 +1,56 @@
+#navbar ul {
+	list-style-type: none;
+	float: right;
+	margin-right: 20px;
+}
+
+#navbar ul li {
+	display: inline;
+	margin-right: 20px;
+	font-size: 18px;
+}
+
+#navbar ul li a {
+	text-decoration: none;
+	color: black;
+	transition: color 0.5s;
+}
+
+#navbar ul li a:hover {
+	color: grey;
+	transition: color 0.3s;
+}
+
+#navbar {
+	background-color: whitesmoke;
+	padding-top: 15px;
+	padding-bottom: 25px;
+	/* 45 */
+	/* padding-right: 50px; */
+	/* padding: 25px; */
+	width: 100%;
+	/* border-bottom: 3px solid rgb(201, 201, 201); */
+	top: 0%;
+	position: fixed;
+	z-index: 99;
+	box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.027), 0 6px 15px 0 rgba(0, 0, 0, 0.103);
+}
+
+#logo-nav {
+	position: fixed;
+	top: 25px;
+	left: 7px;
+	/* float: left; */
+	height: 50px;
+	width: 50px;
+	/* background: url('/static/fc.png'); */
+	border-radius: 50%;
+}
+
+#new-post {
+	cursor: pointer;
+	font-weight: bold;
+	background-color: lightgrey;
+	padding: 3px;
+	border-radius: 10px;
+}
