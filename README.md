@@ -23,7 +23,13 @@ You can create a post by clicking the plus icon at the top-right corner. There, 
 After publishing, you will be brought to your post page by default. There, you can see the comments, and views. The comments & views are not live as of right now.
 
 ### Deleting a post or account
-For now, you cannot delete a post or account, but the feature can and will be added in the future.
+You can delete your account in: Account -> 'DELETE ACCOUNT ONLY | Posts & Comments will be saved'. As the name suggests. The comments and posts will be saved, but the username of them will be anonymous and display '[DELETED_ACCOUNT]'.
+
+You can delete your posts in: Account -> 'DELETE POSTS ONLY | Account and Comments will be saved'. Again, the account and the comments will be saved. The deleted post will be completely deleted, the account won't be renamed, and the comments included in each post made by other people and you will also disappear.
+
+Delete comments in: Account -> 'Delete COMMENTS ONLY | Account and Posts will be saved'. Comments will be removed entirely, not renamed, removed entirely.
+
+Delete EVERYTHING in: Account -> 'DELETE EVERYTHING | Everything including account.'. Everything will be deleted and nothing is saved unlike the previous options.
 
 ### Account page
 On the account page at the top right. You can edit your username, set a bio, and a status. 
@@ -40,10 +46,12 @@ SharePost has an API that is free to use, and is accessible to anyone, even peop
 - SharePost will return the data of the account in JSON format. See example below:
 ```json
 {
-  "bio": "The official testing account for SharePost.", 
-  "profile_picture": "https://SharePost.jonathan2018.repl.co/static/images/profile/pfp-10.png", 
-  "status": "Being tested", 
-  "username": "@Sample"
+  "bio": "Developer of this platform.", 
+  "comments": 15, 
+  "posts": 5, 
+  "profile_picture": "https://SharePost.jonathan2018.repl.co/static/images/profile/pfp-5.png", 
+  "status": "Busy developing", 
+  "username": "@Jonathan2018"
 }
 ```
 - You can do whatever you want with the data. More data could be added in the future, though they will not be too specific.
