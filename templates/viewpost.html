@@ -10,17 +10,19 @@
 	<script src="/static/navbar.js" defer></script>
 	<script src="/static/pfp-loader.js" defer></script>
 	<!-- sc -->
+	<script src="/static/post.js" defer></script>
 </head>
 <body>
 
 	<script>
 		const pfp = "{{ pfp }}";
 		const name = "{{ username }}";
+		const deleteAllowed = "{{ deleteAllowed }}";
 	</script>
 
 	<div id="navbar"></div>
 
-	<h1>{{ data[0][2] }} | {{ data[0][1] }}</h1>
+	<h1><span id="full-post-title">{{ data[0][2] }}</span> | <a href="/profile/{{ data[0][1] }}">{{ data[0][1] }}</a></h1>
 
 	<div id="full-post">
 		<div class="profile-img-id" style="display:none">{{ data[0][6] }}</div>
@@ -30,6 +32,8 @@
 				<img class="profile-img">
 			</a>
 		</div>
+
+		<a id="delete-btn" href="/remove/{{ data[0][0] }}" title="DELETE POST"><i class="fal fa-trash-alt"></i></a>
 		
 		<p class="author-name">{{ data[0][1] }}</p>
 		<pre class="content">{{ data[0][3] }}</pre>

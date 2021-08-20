@@ -80,6 +80,9 @@ p.title {
 	font-weight: bold;
 	margin-top: 5px;
 	margin-bottom: 2px;
+
+	overflow: hidden;
+	text-overflow: ellipsis;
 }
 
 p.timestamp {
@@ -459,3 +462,32 @@ p.center {
 	width: 500px;
 	margin: auto auto 10px auto;
 }
+
+#delete-btn {
+	background-color:#de5246;
+	color: whitesmoke;
+	font-weight: bold;
+	font-size: 20px;
+	position: absolute;
+	left: 74.5%;
+	top: 28vh;
+	padding: 10px;
+	height: 25px;
+	width:25px;
+	border-radius: 50%;
+	opacity: 0.7;
+	transition: opacity 0.5s;
+}
+
+#delete-btn:hover {
+	opacity: 1;
+	transition: opacity 0.3s;
+}
+
+/* #full-post-title {
+	width: 300px;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	display: inline-block;
+} */

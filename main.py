@@ -188,23 +188,32 @@ def view_post(post_id):
 
 	conn.commit()
 	conn.close()
+
+	if data[0][1] == session.get("username"):
+		delete_allowed = True
+	else:
+		delete_allowed = False
 	
-	return render_template("viewpost.html", data=data, comments=reversed(comments), pfp=session.get("pfp"), username=session.get("username"))
+	return render_template("viewpost.html", data=data, comments=reversed(comments), pfp=session.get("pfp"), username=session.get("username"), deleteAllowed=delete_allowed)
 
 @app.route("/comment", methods=['POST'])
 def log_comment():
 	# author = request.form.get("author")
+	if check_if_logged_in() == False:
+		return redirect("/login")
 	body = request.form.get("comment")
+	if body == None or  body == "" or body.isspace():
+		return render_template("general-error.html", error="Comment cannot be empty")
 	post_id = request.form.get("post_id")
 	print(str(post_id))
 	timestamp = datetime.datetime.now()
 	timestamp = timestamp.strftime("%m/%d/%Y")
 	conn = sqlite3.connect('db.sql')
 	c = conn.cursor()
-	if check_if_logged_in() == False:
-		conn.commit()
-		conn.close()
-		return redirect("/login")
+	# if check_if_logged_in() == False:
+	# 	conn.commit()
+	# 	conn.close()
+	# 	return redirect("/login")
 	profile_img_id = c.execute("SELECT pfp FROM accounts WHERE username=:username", {"username":session.get("username")}).fetchall()
 	c.execute("INSERT INTO comments VALUES(?, ?, ?, ?, ?, ?, ?)", (post_id, session.get("username"), body, timestamp, 0, 0, profile_img_id[0][0]))
 	conn.commit()
@@ -223,6 +232,9 @@ def profile_custom():
 
 @app.route("/profile/<username>")
 def profile_general(username):
+	if username == "[DELETED_ACCOUNT]":
+		return render_template("general-error.html", error="This page is a temporary plceholder for deleted accounts.\nDeleted account do not have any information apart from saved comments and posts.\nThey will all be displayed under the name \"[DELETED_ACCOUNT]\"")
+	
 	if check_if_logged_in() == False:
 		return redirect("/login")
 	# Send all the account information to profile page
@@ -232,7 +244,7 @@ def profile_general(username):
 	conn.commit()
 	conn.close()
 	if len(account_information) == 0:
-		return "That account doesn't exist."
+		return render_template("general-error.html", error="That account doesn't exist.")
 	return render_template("profile.html", information=account_information[0], pfp=session.get("pfp"), username=session.get("username"))
 
 #account
@@ -291,6 +303,25 @@ def update_account():
 def logout():
 	session.clear()
 	return redirect("/login")
+
+@app.route("/remove/<post_id>")
+def remove_post(post_id):
+	if check_if_logged_in() == False:
+		return redirect("/login")
+	
+	conn = sqlite3.connect('db.sql')
+	c = conn.cursor()
+	post_author = c.execute("SELECT author FROM posts WHERE id=:id", {"id": post_id}).fetchall()
+	if post_author[0][0] != session.get("username"):
+		return render_template("general-error.html", error="You are not allowed to delete that post.")
+	else: 
+		pass
+
+	c.execute("DELETE FROM posts WHERE id=:id", {"id": post_id})
+	c.execute("DELETE FROM comments WHERE post_id=:id", {"id": post_id})
+	conn.commit()
+	conn.close()
+	return redirect("/")
 
 @app.route("/delete-everything")
 def delete_everything():
