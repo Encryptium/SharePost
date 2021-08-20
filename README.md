@@ -23,6 +23,10 @@ You can create a post by clicking the plus icon at the top-right corner. There, 
 After publishing, you will be brought to your post page by default. There, you can see the comments, and views. The comments & views are not live as of right now.
 
 ### Deleting a post or account
+You can delete a single post. Go to the post you want to delete **(that is owned by you)**. There, you should see a circular trash can icon at the top right of your post. Click it, and it will delete **immediately**.
+
+**Note:** Comments can not be individually deleted. They can only be deleted all at once.
+
 You can delete your account in: Account -> 'DELETE ACCOUNT ONLY | Posts & Comments will be saved'. As the name suggests. The comments and posts will be saved, but the username of them will be anonymous and display '[DELETED_ACCOUNT]'.
 
 You can delete your posts in: Account -> 'DELETE POSTS ONLY | Account and Comments will be saved'. Again, the account and the comments will be saved. The deleted post will be completely deleted, the account won't be renamed, and the comments included in each post made by other people and you will also disappear.
