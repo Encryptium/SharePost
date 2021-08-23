@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="auto" dir="auto">
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -38,7 +38,7 @@
 		<p class="author-name">{{ data[0][1] }}</p>
 		<pre class="content">{{ data[0][3] }}</pre>
 		<p class="timestamp">{{ data[0][4] }}</p>
-		<p id="post-views-full"><b>{{ data[0][5]+1 }}</b> view(s)</p>
+		<p id="post-views-full"><b>{{ current_views }}</b> view(s)</p>
 	</div>
 
 	<br>
@@ -55,7 +55,7 @@
 
 	
 	<div id="comments">	
-		<h2>Comments (Latest - Earliest)</h2>
+		<h2>Comments (Latest to Earliest)</h2>
 		{% for comment in comments %}
 			<div class="comment">
 				<div class="profile-img-id" style="display:none">{{ comment[6] }}</div>
@@ -70,6 +70,7 @@
 				<p class="timestamp">{{ comment[3] }}</p>
 			</div>
 		{% endfor %}
+		<span id="bottom"></span>
 	</div>
 	
 	

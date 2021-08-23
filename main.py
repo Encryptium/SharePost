@@ -176,10 +176,26 @@ def view_post(post_id):
 		return redirect("/login")
 	if is_int(post_id) == False:
 		return render_template("post-error.html", error="Invalid Post")
+	
+	argument = request.args.get("argument")
+
 	conn = sqlite3.connect('db.sql')
 	c = conn.cursor()
 	data = c.execute("SELECT * FROM posts WHERE id=:post_id", {'post_id':post_id}).fetchall()
 	comments = c.execute("SELECT * FROM comments WHERE post_id=:post_id", {"post_id": post_id}).fetchall()
+
+	if argument == "iv":
+		current_views = str(data[0][5])
+		if data[0][1] == session.get("username"):
+			delete_allowed = True
+		else:
+			delete_allowed = False
+
+		return render_template("viewpost.html", data=data, comments=reversed(comments), pfp=session.get("pfp"), username=session.get("username"), deleteAllowed=delete_allowed, current_views=current_views)
+
+	else:
+		current_views = str(data[0][5] + 1)
+
 	c.execute("UPDATE posts SET views = views + 1 WHERE id=:post_id", {"post_id": post_id})
 	if len(data) == 0:
 		conn.commit()
@@ -194,7 +210,7 @@ def view_post(post_id):
 	else:
 		delete_allowed = False
 	
-	return render_template("viewpost.html", data=data, comments=reversed(comments), pfp=session.get("pfp"), username=session.get("username"), deleteAllowed=delete_allowed)
+	return render_template("viewpost.html", data=data, comments=reversed(comments), pfp=session.get("pfp"), username=session.get("username"), deleteAllowed=delete_allowed, current_views=current_views)
 
 @app.route("/comment", methods=['POST'])
 def log_comment():
@@ -218,7 +234,7 @@ def log_comment():
 	c.execute("INSERT INTO comments VALUES(?, ?, ?, ?, ?, ?, ?)", (post_id, session.get("username"), body, timestamp, 0, 0, profile_img_id[0][0]))
 	conn.commit()
 	conn.close()
-	return redirect("/post/" + post_id)
+	return redirect("/post/" + post_id + "?argument=iv")
 
 @app.route("/profile")
 def profile_custom():
@@ -378,6 +394,10 @@ def delete_comments():
 	conn.commit()
 	conn.close()
 	return redirect("/account")
+
+@app.route("/api/about")
+def api_about():
+	return render_template("about-api.html")
 
 @app.route("/api", methods=['GET'])
 def access_api():
