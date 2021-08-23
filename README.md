@@ -25,14 +25,11 @@ After publishing, you will be brought to your post page by default. There, you c
 ### Deleting a post or account
 You can delete a single post. Go to the post you want to delete **(that is owned by you)**. There, you should see a circular trash can icon at the top right of your post. Click it, and it will delete **immediately**.
 
-**Note:** Comments can not be individually deleted. They can only be deleted all at once.
+**Note:** Comments can not be individually deleted.
 
 You can delete your account in: Account -> 'DELETE ACCOUNT ONLY | Posts & Comments will be saved'. As the name suggests. The comments and posts will be saved, but the username of them will be anonymous and display '[DELETED_ACCOUNT]'.
 
-You can delete your posts in: Account -> 'DELETE POSTS ONLY | Account and Comments will be saved'. Again, the account and the comments will be saved. The deleted post will be completely deleted, the account won't be renamed, and the comments included in each post made by other people and you will also disappear.
-
-Delete comments in: Account -> 'Delete COMMENTS ONLY | Account and Posts will be saved'. Comments will be removed entirely, not renamed, removed entirely.
-
+Delete Account in: Account -> 'DELETE ACCOUNT | Posts & comments will stay.'. Your account, and piece of information part of it will be removed from our databases. But your posts and comments will stay, though they will be anonymized under the name `[DELETED_ACCOUNT]`.
 Delete EVERYTHING in: Account -> 'DELETE EVERYTHING | Everything including account.'. Everything will be deleted and nothing is saved unlike the previous options.
 
 ### Account page
@@ -58,4 +55,4 @@ SharePost has an API that is free to use, and is accessible to anyone, even peop
   "username": "@Jonathan2018"
 }
 ```
-- You can do whatever you want with the data. More data could be added in the future, though they will not be too specific.
+- You can do whatever you want with the data. More data could be added in the future, though it will not be too specific.
