@@ -27,8 +27,6 @@ You can delete a single post. Go to the post you want to delete **(that is owned
 
 **Note:** Comments can not be individually deleted.
 
-You can delete your account in: Account -> 'DELETE ACCOUNT ONLY | Posts & Comments will be saved'. As the name suggests. The comments and posts will be saved, but the username of them will be anonymous and display '[DELETED_ACCOUNT]'.
-
 Delete Account in: Account -> 'DELETE ACCOUNT | Posts & comments will stay.'. Your account, and piece of information part of it will be removed from our databases. But your posts and comments will stay, though they will be anonymized under the name `[DELETED_ACCOUNT]`.
 
 Delete EVERYTHING in: Account -> 'DELETE EVERYTHING | Everything including account.'. Everything will be deleted and nothing is saved unlike the previous options.
