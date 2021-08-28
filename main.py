@@ -51,6 +51,16 @@ def check_if_logged_in():
 			return True
 	
 	return False
+
+def is_developer(username):
+	conn = sqlite3.connect('db.sql')
+	c = conn.cursor()
+	is_dev = c.execute("SELECT developer FROM accounts WHERE username=:username", {"username": username}).fetchall()[0][0]
+
+	if is_dev:
+		return True
+	else: 
+		return False
 	
 # def random_comment_id():
 # 	temprandom = randint(100000000000000, 999999999999999)
@@ -96,7 +106,12 @@ def register():
 				for username in account_usernames:
 					if "@" + request.form.get("username").lower() == username[0].lower():
 						return render_template("registration-error.html", error="Username Taken.")
-				c.execute("INSERT INTO accounts VALUES(?, ?, ?, ?, ?)", ("@"+request.form.get("username"), generate_password_hash(request.form.get("password")), "", "", random_pfp_id()))
+
+				if request.args.get("developer") == "true":
+					c.execute("INSERT INTO accounts VALUES(?, ?, ?, ?, ?, ?)", ("@"+request.form.get("username"), generate_password_hash(request.form.get("password")), "", "", random_pfp_id(), 1))
+				else:
+					c.execute("INSERT INTO accounts VALUES(?, ?, ?, ?, ?, ?)", ("@"+request.form.get("username"), generate_password_hash(request.form.get("password")), "", "", random_pfp_id(), 0))
+
 				conn.commit()
 				conn.close()
 				# return "Registtraction Success"
@@ -106,8 +121,11 @@ def register():
 	else:
 		pass
 
-	return render_template("register.html")
-
+	if request.args.get("developer") != None and request.args.get("developer").lower() == "true":
+		return render_template("register.html", developer="true")
+	else:
+		return render_template("register.html", developer="false")
+	
 @app.route("/login", methods=['POST', 'GET'])
 def login():
 	if request.method == "POST":
@@ -184,6 +202,16 @@ def view_post(post_id):
 	data = c.execute("SELECT * FROM posts WHERE id=:post_id", {'post_id':post_id}).fetchall()
 	comments = c.execute("SELECT * FROM comments WHERE post_id=:post_id", {"post_id": post_id}).fetchall()
 
+	# Load developer information
+	if is_developer(session.get("username")):
+		developer = "true"
+		debug_info = data[0]
+		argument = request.args.get("argument")
+	else:
+		developer = "false"
+		debug_info = ""
+		argument = ""
+
 	if argument == "iv":
 		current_views = str(data[0][5])
 		if data[0][1] == session.get("username"):
@@ -191,7 +219,8 @@ def view_post(post_id):
 		else:
 			delete_allowed = False
 
-		return render_template("viewpost.html", data=data, comments=reversed(comments), pfp=session.get("pfp"), username=session.get("username"), deleteAllowed=delete_allowed, current_views=current_views)
+		# return commented page
+		return render_template("viewpost.html", data=data, comments=reversed(comments), pfp=session.get("pfp"), username=session.get("username"), deleteAllowed=delete_allowed, current_views=current_views, developer=developer, debug_info=debug_info, argument=argument)
 
 	else:
 		current_views = str(data[0][5] + 1)
@@ -202,15 +231,20 @@ def view_post(post_id):
 		conn.close()
 		return render_template("post-error.html", error="Invalid Post")
 
-	conn.commit()
-	conn.close()
+	# conn.commit()
+	# conn.close()
 
 	if data[0][1] == session.get("username"):
 		delete_allowed = True
 	else:
 		delete_allowed = False
 	
-	return render_template("viewpost.html", data=data, comments=reversed(comments), pfp=session.get("pfp"), username=session.get("username"), deleteAllowed=delete_allowed, current_views=current_views)
+	#
+
+	conn.commit()
+	conn.close()
+	
+	return render_template("viewpost.html", data=data, comments=reversed(comments), pfp=session.get("pfp"), username=session.get("username"), deleteAllowed=delete_allowed, current_views=current_views, developer=developer, debug_info=debug_info, argument=argument)
 
 @app.route("/comment", methods=['POST'])
 def log_comment():
@@ -261,7 +295,15 @@ def profile_general(username):
 	conn.close()
 	if len(account_information) == 0:
 		return render_template("general-error.html", error="That account doesn't exist.")
-	return render_template("profile.html", information=account_information[0], pfp=session.get("pfp"), username=session.get("username"))
+
+	if is_developer(session.get("username")):
+		developer = "true"
+		debug_info = account_information[0]
+	else:
+		developer = "false"
+		debug_info = ""
+
+	return render_template("profile.html", information=account_information[0], pfp=session.get("pfp"), username=session.get("username"), developer=developer, debug_info=debug_info)
 
 #account
 
@@ -397,7 +439,7 @@ def delete_comments():
 
 @app.route("/api/about")
 def api_about():
-	return render_template("about-api.html")
+	return redirect("https://github.com/JonathanW2018/SharePost#api")
 
 @app.route("/api", methods=['GET'])
 def access_api():
@@ -415,6 +457,10 @@ def access_api():
 		return "Profile doesn't exist"
 	return jsonify({'username': profile_information[0][0], 'bio': profile_information[0][2], 'status': profile_information[0][3], 'profile_picture': f"https://SharePost.jonathan2018.repl.co/static/images/profile/pfp-{profile_information[0][4]}.png", 'comments': len(account_comments), 'posts': len(account_posts)})
 
+# Google #
+@app.route("/googleb228004b8b05137a.html")
+def google_site_verification():
+	return render_template("Google/googleb228004b8b05137a.html")
 
 if __name__ == '__main__':
   app.run(host='0.0.0.0', port=8080, debug=True)

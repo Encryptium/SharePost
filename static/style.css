@@ -42,6 +42,9 @@ body {
   display: grid;
   grid-template-columns: auto auto auto;
   padding: 10px;
+  
+  grid-gap: 20px;
+  margin: auto;
 }
 
 .post {
@@ -52,9 +55,9 @@ body {
 	padding: 20px;
 	/* border: 1px solid #373737; */
 	/* text-align: left; */
-	width: 350px; /*80*/
+	width: 310px; /*80*/
 	height: 350px; /*40bh*/
-	margin: 15px;
+	margin: auto;
 	cursor: pointer;
 	hyphens: auto;
 	/* text-overflow: ellipsis; */
@@ -385,7 +388,7 @@ a:hover {
 #name-corner {
 	position: absolute;
 	top: 37.5px; /*5.5vh*/
-	left: 5.5%;
+	left: 75px; /**5.5%b*/
 }
 
 .open-profile-wrap {
@@ -502,4 +505,25 @@ p.center {
 
 p.readable {
 	margin: 40px 10% 0px 10%;
+}
+
+#dev-console {
+	position: fixed;
+	padding: 20px;
+	bottom: 15px; /*80*/
+	right: 15px; /*89*//*88*/
+	/*transform: translate(-50%, -50%);*/
+	background-color: whitesmoke;
+	border-radius: 9px;
+	box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+	opacity: 0.9;
+	width: 250px;
+
+	height: 200px;
+
+	overflow: scroll;
+	/* text-overflow: break-all; */
+	word-break: break-all;
+	
+	z-index: 99;
 }

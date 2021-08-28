@@ -7,3 +7,4 @@ function removeInvalidChars(name){
 
   document.getElementsByName(name)[0].value = newInput;
 }
+

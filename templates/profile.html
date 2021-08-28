@@ -9,6 +9,8 @@
 	 crossorigin="anonymous" />
 	<script src="/static/navbar.js" defer></script>
 	<script src="/static/pfp-loader.js" defer></script>
+	<!-- <script src="/static/script.js" defer></script> -->
+	<script src="/static/developer.js"></script>
 </head>
 <body>
 
@@ -16,6 +18,14 @@
 		const profileIndex = {{ information[4] }};
 		const pfp = "{{ pfp }}";
 		const name = "";
+
+		const debug = "{{ developer }}";
+		const debugInfo = ["{{ debug_info[0] }}", "{{ debug_info[1] }}", "{{ debug_info[4] }}", "{{ debug_info[5] == 1 }}"];
+
+		if (debug == "true") {
+			loadDeveloperConsole("profile");
+		}
+		
 	</script>
 
 	<div id="navbar"></div>
