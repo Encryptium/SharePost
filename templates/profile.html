@@ -4,9 +4,17 @@
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>Profile | {{ information[0] }}</title>
+
+	<!-- Stylesheets -->
 	<link rel="stylesheet" href="/static/style.css">
 	<link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p"
 	 crossorigin="anonymous" />
+
+	<!-- Favicon -->
+	<link rel="icon" type="image/png" href="/static/images/favicon.png"/>
+	<link rel="apple-touch-icon" href="/static/images/favicon.png"/>
+
+	<!-- Scripts -->
 	<script src="/static/navbar.js" defer></script>
 	<script src="/static/pfp-loader.js" defer></script>
 	<!-- <script src="/static/script.js" defer></script> -->
@@ -18,14 +26,6 @@
 		const profileIndex = {{ information[4] }};
 		const pfp = "{{ pfp }}";
 		const name = "";
-
-		const debug = "{{ developer }}";
-		const debugInfo = ["{{ debug_info[0] }}", "{{ debug_info[1] }}", "{{ debug_info[4] }}", "{{ debug_info[5] == 1 }}"];
-
-		if (debug == "true") {
-			loadDeveloperConsole("profile");
-		}
-		
 	</script>
 
 	<div id="navbar"></div>
@@ -33,7 +33,7 @@
 	<h1 id="profile-title">{{ information[0] }}</h1>
 
 	<div class="profile-img-id" style="display:none">{{ information[4] }}</div>
-	<div id="profile-pfp" title="Profile Picture"><img class="profile-img" id="profile-img" draggable="false"></div>
+	<div id="profile-pfp" title="Profile Picture"><img class="profile-img" draggable="false"></div>
 	<!-- [IMG] {{ information[4] }} -->
 
 	<div id="right-sidebar">

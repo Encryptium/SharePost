@@ -4,9 +4,17 @@
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>Create an Account | SharePost</title>
+
+	<!-- Stylesheets -->
 	<link rel="stylesheet" href="/static/style.css">
 	<link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p"
 	 crossorigin="anonymous" />
+
+	<!-- Favicon -->
+	<link rel="icon" type="image/png" href="/static/images/favicon.png"/>
+	<link rel="apple-touch-icon" href="/static/images/favicon.png"/>
+
+	<!-- Scripts -->
 	<script src="/static/navbar.js" defer></script>
 	<script src="/static/script.js"></script>
 </head>
@@ -19,8 +27,8 @@
 	</div>
 
 	<div id="right-sidebar">
-		<h1>Hello!</h1>
-		<span>You need an account to interact with posts and make comments.</span>
+		<h1>Welcome!</h1>
+		<span>Create an account to explore SharePost!</span>
 		<br>
 		<br>
 
@@ -34,11 +42,15 @@
 			<input type="password" name="password-conf" placeholder="Confirm your password" required>
 			<br>
 			<br>
-			<button type="submit" class="submit">REGISTER</button>
+			<input type="checkbox" name="terms" required>
+			<label for="terms">By registering, I agree to the <a href="#terms">terms above</a>.</label>
+			<br>
+			<br>
+			<button type="submit">REGISTER</button>
 		</form>
 		<br>
 		<a title="Login!" href="/login">Already have an account?</a>
-		<p id="terms">By creating an account, you agree to having your profile public. Your profile contains your bio, status, and username. Anyone on the graphical platform who has an account can see your profile. Your profile is available to anyone choosing to use the <a href="/api/about">SharePost API</a>.</p>
+		<p id="terms">Your profile is made public. It contains your <u>bio, status, and username</u>. Only people with an account on the platform can see your profile. <b>However, anyone using the</b> <a href="/api/about">SharePost <abbr title="Application Programming Interface">API</abbr></a> <b>can see your profile.</b></p>
 	</div>
 	
 </body>

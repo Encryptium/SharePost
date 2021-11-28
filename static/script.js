@@ -8,3 +8,9 @@ function removeInvalidChars(name){
   document.getElementsByName(name)[0].value = newInput;
 }
 
+// Load help tooltip for specific features
+const betaFeatures = document.querySelectorAll(".beta");
+
+for (let i = 0; i < betaFeatures.length; i++) {
+	betaFeatures[i].setAttribute('title', "This feature is still being tested and improved.");
+}

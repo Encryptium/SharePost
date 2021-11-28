@@ -4,9 +4,15 @@
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>Publish a new post</title>
+
+	<!-- Stylesheets -->
 	<link rel="stylesheet" href="/static/style.css">
-	<link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p"
-	 crossorigin="anonymous" />
+
+	<!-- Favicon -->
+	<link rel="icon" type="image/png" href="/static/images/favicon.png"/>
+	<link rel="apple-touch-icon" href="/static/images/favicon.png"/>
+
+	<!-- Scripts -->
 	<script src="/static/navbar.js" defer></script>
 </head>
 <body>
@@ -18,17 +24,18 @@
 
 	<div id="navbar"></div>
 
-	<h1>Publish a new post</h1>
+	<h1>Write a Post</h1>
 
 	<div id="create-post">
 		<form action="/publish" method="POST">
-		<input type="text" name="title" id="title-input" placeholder="Title" maxlength="25" autocomplete="off" autofocus>
-		<br>
-		<br>
+		<input type="text" name="title" id="title-input" placeholder="Title" maxlength="25" autocomplete="off" required autofocus>
+		<!-- <br>
+		<br> -->
 		<!-- <input type="text" name="username" placeholder="Your name">
 		<br>
 		<br> -->
-		<textarea name="body-content" id="content-input" placeholder="Share what you've been up to..." maxlength="350"></textarea>
+		<textarea name="body-content" id="content-input" placeholder="Share what you've been up to..." maxlength="350" required></textarea>
+		<br>
 		<br>
 		<button type="submit" class="submit">Post</button>
 		</form>

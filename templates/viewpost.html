@@ -4,10 +4,18 @@
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>{{ data[0][2] }} | SharePost</title>
+
+	<!-- Stylesheets -->
 	<link rel="stylesheet" href="/static/style.css">
 	<!-- <link rel="stylesheet" href="/static/skeleton.css"> -->
 	<link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p"
 	 crossorigin="anonymous" />
+
+	<!-- Favicon -->
+	<link rel="icon" type="image/png" href="/static/images/favicon.png"/>
+	<link rel="apple-touch-icon" href="/static/images/favicon.png"/>
+
+	<!-- Scripts -->
 	<script src="/static/navbar.js" defer></script>
 	<script src="/static/pfp-loader.js" defer></script>
 	<!-- sc -->
@@ -21,13 +29,6 @@
 		const pfp = "{{ pfp }}";
 		const name = "{{ username }}";
 		const deleteAllowed = "{{ deleteAllowed }}";
-
-		const debug = "{{ developer }}";
-		const debugInfo = ["{{ debug_info[0] }}", "{{ debug_info[1] }}", "{{ argument }}"];
-
-		if (debug == "true") {
-			loadDeveloperConsole("post");
-		}
 	</script>
 
 	<div id="navbar"></div>
@@ -60,12 +61,12 @@
 		<br>
 		<br> -->
 		<input title="Write a Comment" id="comment-input" type="text" name="comment" maxlength="300" autocomplete="off" placeholder="Say something about this post" required>
-		<button type="submit" class="submit">Comment</button>
+		<button type="submit">Comment</button>
 	</form>
 
 	
 	<div id="comments">	
-		<h2>Comments (Latest to Earliest)</h2>
+		<h2 title="Latest to Earliest">Comments</h2>
 		{% for comment in comments %}
 			<div class="comment">
 				<div class="profile-img-id" style="display:none">{{ comment[6] }}</div>

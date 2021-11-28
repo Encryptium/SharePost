@@ -3,6 +3,7 @@
 /* Fonts */
 @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600;1,700&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Lexend:wght@100;300;400;500;600;700;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600;1,700&display=swap');
 
 /* Style */
 * {
@@ -12,6 +13,11 @@
 	align-items: center; */
 	scroll-behavior: smooth;
 }
+
+html {
+	scroll-behavior: smooth;
+}
+
 
 body {
 	margin: 0;
@@ -62,6 +68,8 @@ body {
 	hyphens: auto;
 	/* text-overflow: ellipsis; */
 	/* overflow: hidden; */
+
+	box-shadow: 0 5px 10px rgba(0, 0, 0, .2);
 	transition: box-shadow 0.5s;
 }
 
@@ -71,7 +79,7 @@ body {
 }
 
 h1 {
-	margin-top: 10%;
+	margin-top: 20vh; /*10%*/
 }
 
 p {
@@ -141,12 +149,28 @@ input {
 	background-color: whitesmoke;
 }
 
-input#title-input {
-	font-size: 19px;
-	/* font-weight: bold; */
+input[type="checkbox"] {
+	text-align: center;
+	height: 15px;
+	width: 15px;
+	padding: none;
+}
+
+/* Draft page styling */
+#title-input {
+	display: block;
+	font-size: 20px;
+	font-weight: bolder;
+	border-radius: 10px 10px 0px 0px;
+	/* width: 510px; */
+	width: 500px;
+	padding: 15px;
+	margin: auto auto 0px auto;
+	color: #363636;
 }
 
 #content-input {
+	display: block;
 	height: 200px;
 	width: 500px;
 	border: none;
@@ -154,12 +178,14 @@ input#title-input {
 	font-size: 18px;
 	background-color: whitesmoke;
 	padding: 15px;
-	border-radius: 10px;
+	border-radius: 0px 0px /**/10px 10px;
 	outline: none;
 	resize: none;
+	margin: 0px auto auto auto;
+	color: #373737;
 }
 
-button.submit {
+button[type="submit"] {
 	font-size: 15px;
 	padding: 10px;
 	height: 40px;
@@ -167,6 +193,14 @@ button.submit {
 	border: none;
 	background-color: whitesmoke;
 	border-radius: 5px;
+	font-weight: bold;
+	color: lightgrey;
+	transition: color 0.5s;
+}
+
+button[type="submit"]:hover {
+	color: grey;
+	transition: color 0.3s;
 }
 
 :disabled {
@@ -367,7 +401,9 @@ p#post-views-full {
 a {
 	text-decoration: none;
 	color: grey;
-	transition: color 0.5s;
+	transition: color 0.5;
+	
+	/* font-weight: bold; */
 }
 
 a:hover {
@@ -461,13 +497,26 @@ p.center {
 }
 
 .danger-link {
-	background-color: #de5246;
-	color: white;
+	/* background-color: #de5246;
+	color: white; */
+	background-color: transparent;
+	color: #de5246;
+	border: 3px solid #de5246;
+	font-weight: bold;
+
 	padding: 15px;
-	border-radius: 2px;
+	border-radius: 5px;
 	display: block;
 	width: 500px;
 	margin: auto auto 10px auto;
+
+	/* transition: color 0.5s; */
+}
+
+.danger-link:hover {
+	/* color: #a2382f; */
+	color: #de5246;
+	/* transition: color 0.3s; */
 }
 
 #delete-btn {
@@ -501,6 +550,18 @@ p.center {
 
 #terms {
 	margin: 40px 50px 0px 50px;
+	margin-bottom: 70px;
+	position: absolute;
+	top: 7vh;
+
+	padding: 10px;
+	outline: none;
+	cursor: default;
+	border-radius: 3px;
+}
+
+#terms:active {
+	outline: auto;
 }
 
 p.readable {
@@ -527,3 +588,57 @@ p.readable {
 	
 	z-index: 99;
 }
+
+/* To display error and other codes */
+blockquote {
+	background-color: whitesmoke;
+	border-radius: 5px;
+	height: 70px;
+	width: 50%;
+	text-align: left;
+	padding: 10px 5px 30px 5px;
+	margin: auto;
+}
+
+.mono {
+	font-family: 'IBM Plex Mono', monospace;
+}
+
+.red {
+	color: #de5246;
+}
+
+h1#large {
+	font-size: 75px;
+	font-family: 'Lexend', sans-serif;
+	font-weight: lighter;
+	margin-bottom: auto;
+}
+
+/* Tags */
+.beta::after {
+	content: "BETA";
+	color: #4c8bf5;
+	border: 2px solid #4c8bf5;
+	border-radius: 3px;
+	font-weight: normal;
+	font-size: 11px;
+	padding: 2px 5px 2px 5px;
+	margin: auto;
+	margin-left: 10px;
+	cursor: default;
+}
+
+.new::after {
+	content: "NEW";
+	color: white;
+	background-color: #de5246;
+	border: 2px solid #de5246;
+	border-radius: 3px;
+	font-weight: normal;
+	font-size: 11px;
+	padding: 2px 5px 2px 5px;
+	margin: auto;
+	margin-left: 10px;
+}
+
