@@ -2,7 +2,7 @@
 A social media platform that allows users to post, and comment. Creating accounts, bios, and setting a status. Users can also view other users profiles.
 
 ## Website
-Click [here](https://app.SharePost.42web.io/) to go the official SharePost website. You can create an account there or login.
+Click [here](https://sharepost.jonathan2018.repl.co/) to go the official SharePost website. You can create an account there or login.
 
 ## Using SharePost
 ### Creating an account
@@ -42,14 +42,14 @@ The profile page is public so it can be viewed by anyone including yourself. You
 ## API
 SharePost has an API that is free to use, and is accessible to anyone, even people without an account. The API only transfers a person's profile for now. 
 
-- Send a request to `https://app.SharePost.42web.io/api?profile=@Profile"`. Replace the @Profile with whatever username including the `@`. It is case-insensitive.
+- Send a request to `https://sharepost.jonathan2018.repl.co/api?profile=@Profile"`. Replace the @Profile with whatever username including the `@`. It is case-insensitive.
 - SharePost will return the data of the account in JSON format. See example below:
 ```json
 {
   "bio": "Developer of this platform.", 
   "comments": 15, 
   "posts": 5, 
-  "profile_picture": "https://app.SharePost.42web.io/static/images/profile/pfp-5.png", 
+  "profile_picture": "https://SharePost.jonathan2018.repl.co/static/images/profile/pfp-5.png", 
   "status": "Busy developing", 
   "username": "@Jonathan2018"
 }
